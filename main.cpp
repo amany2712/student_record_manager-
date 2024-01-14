@@ -9,7 +9,7 @@ class student_record_manager
 private:
     vector<string> roll_no,
                    name,
-                   Class,
+                   level,
                    course,
                    mobile_no,
                    gpa,
@@ -45,10 +45,10 @@ void student_record_manager::enter()
         getline(cin, studentName);
         name.push_back(studentName);
 
-        cout << "Enter Class:  ";
-        string studentClass;
-        getline(cin, studentClass);
-        Class.push_back(studentClass);
+        cout << "Enter level:  ";
+        string studentlevel;
+        getline(cin, studentlevel);
+        level.push_back(studentlevel);
 
         cout << "Enter Course:  ";
         string studentCourse;
@@ -91,7 +91,7 @@ void student_record_manager::show()
                  << endl;
             cout << "Roll NO:  " << roll_no[i] << endl;
             cout << "Name:  " << name[i] << endl;
-            cout << "Class:  " << Class[i] << endl;
+            cout << "level:  " << level[i] << endl;
             cout << "Course:  " << course[i] << endl;
             cout << "Mobile NO:  " << mobile_no[i] << endl;
              cout << "Birth of date:  " << birth_of_date[i] << endl;
@@ -120,7 +120,7 @@ void student_record_manager::search()
             {
                 cout << "\nRoll NO:  " << roll_no[i] << endl;
                 cout << "Name:  " << name[i] << endl;
-                cout << "Class:  " << Class[i] << endl;
+                cout << "level:  " << level[i] << endl;
                 cout << "Course:  " << course[i] << endl;
                 cout << "Mobile NO:  " << mobile_no[i] << endl;
                 cout << "Birth of date:  " << birth_of_date[i] << endl;
@@ -149,6 +149,8 @@ void student_record_manager::update()
         string rollno;
         cout << "Enter the roll no of student you want to update" << endl;
         cin >> rollno;
+        bool found = false;
+
         for (int i = 0; i < total; i++)
         {
             if (rollno == roll_no[i])
@@ -157,7 +159,7 @@ void student_record_manager::update()
                      << endl;
                 cout << "Roll NO: " << roll_no[i] << endl;
                 cout << "Name:  " << name[i] << endl;
-                cout << "Class:  " << Class[i] << endl;
+                cout << "level:  " << level[i] << endl;
                 cout << "Course:  " << course[i] << endl;
                 cout << "Mobile NO:  " << mobile_no[i] << endl;
                 cout << "Birth of date:  " << birth_of_date[i] << endl;
@@ -169,8 +171,8 @@ void student_record_manager::update()
                 cout << "Enter Name:  ";
                 cin.ignore();
                 getline(cin, name[i]);
-                cout << "Enter Class:  ";
-                getline(cin, Class[i]);
+                cout << "Enter level:  ";
+                getline(cin, level[i]);
                 cout << "Enter Course:  ";
                 getline(cin, course[i]);
                 cout << "Enter Mobile NO:  ";
@@ -179,8 +181,16 @@ void student_record_manager::update()
                 getline(cin, birth_of_date[i]);
                 cout << "GPA:  ";
                 getline(cin, gpa[i]);
+                found = true;
+                break;
             }
         }
+
+        if (!found)
+        {
+            cout << "Student with Roll NO " << rollno << " not found." << endl;
+        }
+
     }
 }
 
@@ -202,7 +212,7 @@ void student_record_manager::Delete()
         {
             roll_no.clear();
             name.clear();
-            Class.clear();
+            level.clear();
             course.clear();
             mobile_no.clear();
              birth_of_date.clear();
@@ -218,7 +228,7 @@ void student_record_manager::Delete()
             bool found = false;
 
             for (int i = 0; i < total; i++)
-            {
+           {
                 if (rollno == roll_no[i])
                 {
                     cout << "\nPrevious data" << endl
@@ -226,14 +236,14 @@ void student_record_manager::Delete()
                     cout << "Data of Student " << i + 1 << endl;
                     cout << "Roll NO: " << roll_no[i] << endl;
                     cout << "Name:  " << name[i] << endl;
-                    cout << "Class:  " << Class[i] << endl;
+                    cout << "level:  " << level[i] << endl;
                     cout << "Course:  " << course[i] << endl;
                     cout << "Mobile NO:  " << mobile_no[i] << endl;
                     cout << "Birth of date:  " << birth_of_date[i] << endl;
                     cout << "GPA:  " << gpa[i] << endl;
                     roll_no.erase(roll_no.begin() + i);
                     name.erase(name.begin() + i);
-                    Class.erase(Class.begin() + i);
+                    level.erase(level.begin() + i);
                     course.erase(course.begin() + i);
                     mobile_no.erase(mobile_no.begin() + i);
                     birth_of_date.erase(birth_of_date.begin() + i);
@@ -268,11 +278,13 @@ int main()
     cout << "\t\t\t\t\t|    STUDENT RECORD MANAGEMENT SYSTEM  |\n";
     cout << "\t\t\t\t\t----------------------------------------\n";
     cout << "\n\n\n";
-    cout << "\t\t\tPress Enter to continue......";
-    getchar();
+
 
     do
     {
+        cout << "\t\t\tPress Enter to continue......"<<endl;
+         getchar();
+         if(getchar()){
         cout << "\n\n\t\t\t ** Main Menu **\n "
              << endl;
 
@@ -289,9 +301,11 @@ int main()
         cout << "\t\t\tPress 6 to Quit" << endl
              << endl;
         cin >> choice;
+         }
 
         switch (choice)
         {
+
         case 1:
             student.enter();
             break;
